@@ -1,0 +1,90 @@
+PRACTICE
+What is an operating system?
+An operating system is a set of rules that determines how resources are shared on a device.
+
+
+A opertating system acts as an intermediary between the hardware and applications. It determines how resources on a 
+device are shared between different tasks (processes). This is done with virtualzations anf abstractions to make the 
+experience more user friendly. 
+
+What are the principle resources that are managed by an operating system?
+An operating system must manage how... 
+- Processesing (CPU and GPU)
+- Storage 
+- Memory
+- I/O 
+... are shared between processes
+
+What are the principle abstractions in an operaing sytem?
+- Users and permissions (security and access)
+- Processes: assigns specific RAM to individual processes so multiple processes can run concurrently without 
+    interfering with eachother
+- Threads: share the same memory space as the parent processes. They allow for concurrent execution of code within
+    the same process
+- Storage: Abstracts storage devices into logical storage units 
+- Hardware: VMs can be used to mimic physical hardware and can run their own applications independently
+
+What are the principle virtualzations?
+- Virtualizing storage, cpu and RAM 
+
+Q. When is having an operating system a bad idea?
+An operating system is unessential when it is a low level device that does not need to run programs from outside
+sources 
+
+Q. What is the difference between a program and a process?
+A program is the set of instructions that determines the process. Once the device is executing the programs 
+instructions and actively using resources it becomes a process. 
+
+Q. Whats the difference betweens threads and processes?
+Threads are execution units within a process that share the same memory space. This allows threads to communicate 
+without a complex mechanism. Processes run in seperate memory space and must have a complex way to communicate 
+between processes (pipes or sockets)
+
+Q. When are threads a good idea?
+Threads are a good idea when a process can be divided into sub tasks that can be completed individually. 
+These tasks must be completed independently and not require information from memory outside of the process. 
+(smaller, independent subtaks)
+
+Q. How do you start additional threads?
+Several langauges have a threads library. 
+# include <thread>
+public class MyThread extends Thread
+import threading 
+
+Q. How do you start additional processes?
+In high-level langauges process creation is typically abstracted away. In lower level languages like c and c++ fork() can be used to split one process into two
+
+Q. What are two reference scheduling algorithms for running threads?
+- Round Robin: Threads are assigned a fixed time slice to execute. When the time is expired the thread is moved to the back of the queue
+- Priority scheduling: assign threads priority and higher priority are executed before lower
+- Shortest Job First: shortest expected is executed first/next. (difficult to predict)
+- Multilevel queue scheduling: allows for a combo of RR and priority scheduling. split based on characteristics/priority queue and low in RR
+
+Q. What is the purpose of a mutex?
+mutex is short for mutual exclusion. It ensures that only one thread can access a shared resource at a time. 
+Without this baton passing, multiple threads can concurrently read or write from/to a shared resource.
+
+Q. How does the kernel intervene on a process?  Similarly, how does a process ask the
+kernel to provide a service?
+The kernel may intervene on a process if...
+- process exits
+- process produced error or exception
+- reached a time contraint 
+- exhausted a resource 
+- terminates orphaned processes 
+
+
+Proccesses will request the kernel to provide a resource through system calls.
+This could involve tasks like reading or writing to a file, allocating memory, creating a new process, or performing I/O operations.. 
+malloc()
+open()
+close()
+read()
+write()
+socket()
+
+Q. How does a kernel switch which threads/processes are running?
+A kernel will switch which threads are running based on a specified scheduling policy/alg.
+A kernel can switch processes with a context switching. It will save the state of the currently executing thread or process and restoring the state of the selected thread or process to be executed next.
+I/O priority is important to keep CPU and IO at max capacity (most efficient). The kernel will give procces a status of READY, RUNNING, and BLOCKED.
+Ready means the process is loaded, running is it is currently executing, and blocked means the process is writing to or reading something like IO 
